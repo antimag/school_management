@@ -1,0 +1,52 @@
+<%- model_class = Teacher -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped" border="1">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:gender) %></th>
+      <th><%= model_class.human_attribute_name(:email) %></th>
+      <th><%= model_class.human_attribute_name(:phone) %></th>
+      <th><%= model_class.human_attribute_name(:address) %></th>
+      <th><%= model_class.human_attribute_name(:qualification) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%if @teachers.present? %>
+      <% @teachers.each do |teacher| %>
+        <tr>
+          <td><%= link_to teacher.id, teacher_path(teacher) %></td>
+          <td><%= teacher.full_name %></td>
+          <td><%= teacher.gender %></td>
+          <td><%= teacher.email %></td>
+          <td><%= teacher.phone %></td>
+          <td><%= teacher.full_address %></td>
+          <td><%= teacher.qualification %></td>
+          <td>
+            <%= link_to t('.show', :default => t("helpers.links.show")),teacher_path(teacher),
+            :class => 'btn btn-primary' %>
+
+            <%= link_to "Assign students", assign_students_teacher_path(teacher),
+              :class => 'btn btn-default btn-xs' %>
+            <%= link_to "Assign subjects", assign_subjects_teacher_path(teacher),
+              :class => 'btn btn-default btn-xs' %>
+          </td>
+        </tr>
+      <% end %>
+    <%else%>
+      <tr><td colspan="14" align="center"> No records</td></tr>
+    <%end%>
+  </tbody>
+</table>
+<br>
+
+<%= link_to "Back", students_path, :class => 'btn btn-default btn-xs' %>
+
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_teacher_path,
+            :class => 'btn btn-primary' %>

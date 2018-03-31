@@ -1,0 +1,64 @@
+<%- model_class = Student -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped" border="1">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:father_name) %></th>
+      <th><%= model_class.human_attribute_name(:mother_name) %></th>
+      <th><%= model_class.human_attribute_name(:class_roll_no) %></th>
+      <th><%= model_class.human_attribute_name(:date_of_birth) %></th>
+      <th><%= model_class.human_attribute_name(:gender) %></th>
+      <th><%= model_class.human_attribute_name(:birth_place) %></th>
+      <th><%= model_class.human_attribute_name(:language) %></th>
+      <th><%= model_class.human_attribute_name(:religion) %></th>
+      <th><%= model_class.human_attribute_name(:category) %></th>
+      <th><%= model_class.human_attribute_name(:address) %></th>
+      <th><%= model_class.human_attribute_name(:phone) %></th>
+      <th><%= model_class.human_attribute_name(:email) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%if @students.present? %>
+      <% @students.each do |student| %>
+        <tr>
+          <td><%= link_to student.id, student_path(student) %></td>
+          <td><%= student.full_name %></td>
+          <td><%= student.father_name %></td>
+          <td><%= student.mother_name %></td>
+          <td><%= student.class_roll_no %></td>
+          <td><%= student.date_of_birth %></td>
+          <td><%= student.gender %></td>
+          <td><%= student.birth_place %></td>
+          <td><%= student.language %></td>
+          <td><%= student.religion %></td>
+          <td><%= student.category %></td>
+          <td><%= student.full_address %></td>
+          <td><%= student.phone %></td>
+          <td><%= student.email %></td>
+          <td>
+            <%= link_to t('.show', :default => t("helpers.links.show")),
+                        student_path(student), :class => 'btn btn-default btn-xs' %>
+            <%= link_to "Assign teachers", assign_teachers_student_path(student),
+              :class => 'btn btn-default btn-xs' %>
+              <%= link_to "Assign subjects", assign_subjects_student_path(student),
+              :class => 'btn btn-default btn-xs' %>
+          </td>
+        </tr>
+      <% end %>
+    <%else%>
+      <tr><td colspan="15" align="center"> No records</td></tr>
+    <%end%>
+  </tbody>
+</table>
+
+<br>
+          
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_student_path,
+            :class => 'btn btn-primary' %>
